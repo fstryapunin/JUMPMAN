@@ -1,8 +1,3 @@
-//
-// !!! WARNING !!! AUTO-GENERATED FILE!
-// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
-// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
-//
 {
     "configurations": [
         {
@@ -49,7 +44,8 @@
                 "C:/Users/9gagger/.platformio/packages/framework-arduinoststm32/libraries/SrcWrapper/src",
                 "C:/Users/9gagger/.platformio/packages/framework-arduinoststm32/libraries/SubGhz/src",
                 "C:/Users/9gagger/.platformio/packages/framework-arduinoststm32/libraries/Wire/src",
-                ""
+                "",
+                "${workspaceFolder}/src/input"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
