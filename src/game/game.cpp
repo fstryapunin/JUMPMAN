@@ -8,6 +8,7 @@ Game::Game(GameState *newGameState, InputQueue *newEventQueue){
 bool Game::checkIfDead() {};
 
 int Game::generateObstacle() {};
+void Game::shiftObstaclePositions() {};
 
 void Game::updateMotion(){
     if(eventQueue->getEventCount() > 0){
@@ -37,7 +38,13 @@ void Game::increaseScore() {
     // gameState->score++;
 };
 
-void Game::shiftObstaclePositions() {};
+void Game::initGameState(){    
+    gameState->dead = false;
+    gameState->motion = PlayerMotion::STATIONARY;
+    gameState->obstacles.count = 0;
+    gameState->playerPosition = PLAYER_OFFSET_Y;
+    gameState->score = 0;
+}
 
 int Game::runCoroutine(){
     COROUTINE_LOOP(){

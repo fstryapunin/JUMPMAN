@@ -47,6 +47,7 @@ class Game : public Coroutine {
         void updatePosition();
         void increaseScore();
         void shiftObstaclePositions();
+        void initGameState();
     public:
         Game(GameState *gameState, InputQueue *eventQueue);
         int runCoroutine() override;
