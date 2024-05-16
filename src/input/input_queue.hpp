@@ -1,9 +1,6 @@
 #pragma once
 
-enum InputType
-{
-    UP = 1,
-};
+#include "global.hpp"
 
 struct InputEvent {
     InputType input;
