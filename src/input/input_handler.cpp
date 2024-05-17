@@ -1,6 +1,6 @@
 #include "input_handler.hpp"
 #define FILTER_TIME 10
-#define SAMPLE_PERIOD 5
+#define SAMPLE_PERIOD 1
 
 InputHandler::InputHandler(int up_button_pin, InputQueue *queue_ptr) {
     up_button_pin = up_button_pin;
@@ -24,7 +24,10 @@ int InputHandler::runCoroutine(){
             up_button_counter = 0;
             InputEvent event;
             event.input = InputType::UP;
+            COROUTINE_AWAIT(queue->getLocked() == false);
+            queue->lock();
             queue->pushEvent(event);
+            queue->unlock();
             COROUTINE_AWAIT(!readButton(up_button_pin));
         }
         COROUTINE_DELAY(SAMPLE_PERIOD);
