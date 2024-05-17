@@ -1,10 +1,10 @@
 #pragma once
 #include <AceRoutine.h>
-#include "input_queue.hpp"
+#include "../src/input/input_queue.hpp"
 
 using namespace ace_routine;
 
-#define UPDATE_DELAY 100
+#define UPDATE_DELAY 500
 #define JUMP_HEIGHT 40
 #define GROUND_HEIGHT 3
 
@@ -47,8 +47,8 @@ class Game : public Coroutine {
         void updatePosition();
         void increaseScore();
         void shiftObstaclePositions();
-        void initGameState();
     public:
         Game(GameState *gameState, InputQueue *eventQueue);
         int runCoroutine() override;
+        void initGameState();
 };
