@@ -11,13 +11,13 @@ struct InputEvent {
 class InputQueue
 {
     private:
-        InputEvent *events;
+        InputEvent events[4];
         int event_count;
         bool locked;
         int read_index;
         int write_index;
     public:
-        InputQueue(InputEvent *events);
+        InputQueue(InputEvent events[4]);
         void pushEvent(InputEvent event);
         InputEvent popEvent();
         InputEvent previewEvent(int index);

@@ -15,7 +15,7 @@ void Render::displayDebug(){
     display->print("Events:");
     display->println(queue->getEventCount());
     display->print("Preview input: ");
-    display->println(queue->previewEvent(0)->input);
+    display->println(queue->previewEvent(0).input);
 }
 
 int Render::runCoroutine(){

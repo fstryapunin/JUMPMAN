@@ -1,6 +1,6 @@
 #include "input_queue.hpp"
 
-InputQueue::InputQueue(InputEvent *events){
+InputQueue::InputQueue(InputEvent events[4]){
     events = events;
     event_count = 0;
     read_index = 0;
