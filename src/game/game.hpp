@@ -4,7 +4,7 @@
 
 using namespace ace_routine;
 
-#define UPDATE_DELAY 500
+#define UPDATE_DELAY 50
 #define JUMP_HEIGHT 40
 #define GROUND_HEIGHT 3
 

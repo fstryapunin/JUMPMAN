@@ -11,6 +11,15 @@ int Game::generateObstacle() {};
 void Game::shiftObstaclePositions() {};
 
 void Game::updateMotion(){
+
+    if(gameState->playerPosition <= PLAYER_OFFSET_Y 
+    // && gameState->playerPosition == PlayerMotion::FALLINGD
+    ){
+        gameState->motion = PlayerMotion::STATIONARY;
+    }
+    if(gameState->playerPosition >= JUMP_HEIGHT){
+        gameState->motion = PlayerMotion::FALLINGD;
+    }
     if(eventQueue->getEventCount() > 0){
         auto event = eventQueue->popEvent();
         if(
@@ -19,12 +28,6 @@ void Game::updateMotion(){
         gameState->motion == PlayerMotion::STATIONARY){
             gameState->motion = PlayerMotion::JUMPING;
         }
-    }
-    if(gameState->playerPosition <= PLAYER_OFFSET_Y && gameState->playerPosition == PlayerMotion::FALLINGD){
-        gameState->motion = PlayerMotion::STATIONARY;
-    }
-    if(gameState->playerPosition >= JUMP_HEIGHT){
-        gameState->motion = PlayerMotion::FALLINGD;
     }
 }
 
