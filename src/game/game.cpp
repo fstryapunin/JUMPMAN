@@ -60,10 +60,12 @@ void Game::initGameState(){
 int Game::runCoroutine(){
     COROUTINE_LOOP(){
         COROUTINE_AWAIT(eventQueue->getLocked() == false);
+        *updating = true;
         eventQueue->lock();
         updateMotion();
         eventQueue->unlock();
         updatePosition();
         COROUTINE_DELAY(UPDATE_DELAY);
+        *updating = false;
     }
 };
