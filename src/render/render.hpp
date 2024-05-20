@@ -17,10 +17,9 @@ class Render : public Coroutine {
         Adafruit_SSD1306 *display;
         GameState *gameState;
         InputQueue *queue;
+        GFXcanvas1 frame;
         bool *isGameStateUpdating;
-        void displayDebug(GFXcanvas1 *frame);
-        void renderPlayer(GFXcanvas1 *frame);
-        void renderGround(GFXcanvas1 *frame);
+        void displayDebug();
     public:
         Render(Adafruit_SSD1306 *display, GameState *gameState, InputQueue *queue, bool *isGameStateUpdating);
         int runCoroutine() override;
