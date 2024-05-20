@@ -12,9 +12,8 @@ int Game::generateObstacle() {};
 void Game::shiftObstaclePositions() {};
 
 void Game::updateMotion(){
-
     if(gameState->playerPosition <= PLAYER_OFFSET_Y 
-    // && gameState->playerPosition == PlayerMotion::FALLINGD
+    && gameState->motion == PlayerMotion::FALLINGD
     ){
         gameState->motion = PlayerMotion::STATIONARY;
     }
@@ -23,23 +22,18 @@ void Game::updateMotion(){
     }
     if(eventQueue->getEventCount() > 0){
         auto event = eventQueue->popEvent();
-        if(
-         // TODO workaround fix later   
-        // event.input == InputType::UP 
-        gameState->motion == PlayerMotion::STATIONARY){
+        if(event.input == InputType::UP && gameState->motion == PlayerMotion::STATIONARY){
             gameState->motion = PlayerMotion::JUMPING;
         }
     }
 }
 
 void Game::updatePosition() {
-    if(gameState->motion == PlayerMotion::JUMPING 
-    && gameState->playerPosition + JUMP_SPEED <= JUMP_HEIGHT + PLAYER_OFFSET_Y
+    if(gameState->motion == PlayerMotion::JUMPING && gameState->playerPosition + JUMP_SPEED <= JUMP_HEIGHT + PLAYER_OFFSET_Y
     ){
         gameState->playerPosition = gameState->playerPosition + JUMP_SPEED;
     }
-    if(gameState->motion == PlayerMotion::FALLINGD 
-    && gameState->playerPosition - JUMP_SPEED >= PLAYER_OFFSET_Y
+    if(gameState->motion == PlayerMotion::FALLINGD && gameState->playerPosition - JUMP_SPEED >= PLAYER_OFFSET_Y
     ){
         gameState->playerPosition = gameState->playerPosition - JUMP_SPEED;
     }

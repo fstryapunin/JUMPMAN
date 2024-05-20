@@ -22,11 +22,9 @@ int InputHandler::runCoroutine(){
         }
         if(up_button_counter >= FILTER_TIME){
             up_button_counter = 0;
-            InputEvent event;
-            event.input = InputType::UP;
             COROUTINE_AWAIT(queue->getLocked() == false);
             queue->lock();
-            queue->pushEvent(event);
+            queue->pushEvent(InputType::UP);
             queue->unlock();
             COROUTINE_AWAIT(!readButton(up_button_pin));
         }

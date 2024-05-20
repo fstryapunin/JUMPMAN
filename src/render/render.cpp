@@ -15,7 +15,7 @@ void Render::displayDebug(){
     frame.print("Events: ");
     frame.println(queue->getEventCount());
     frame.print("Preview input: ");
-    frame.println(queue->previewEvent(0).input);
+    frame.println(queue->previewEvent(0).input == InputType::UP ? "yes" : "no");
     frame.print("Updating :");
     frame.println(*isGameStateUpdating);
 }
@@ -26,7 +26,7 @@ int Render::runCoroutine(){
         frame.setCursor(0, 0);
         frame.fillScreen(BLACK);
         COROUTINE_AWAIT(*isGameStateUpdating == false);
-        
+        displayDebug();
         display->drawBitmap(0, 0, frame.getBuffer(), frame.width(), frame.height(), WHITE, BLACK);
         display->display();
         COROUTINE_DELAY(FRAME_DELAY_MS);

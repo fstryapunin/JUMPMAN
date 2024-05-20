@@ -25,7 +25,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
   &SPI, DC_PIN, RST_PIN, CS_PIN);
 
 bool isGameStateUpdating = false;
-InputEvent events[4] = {};
+InputEvent events[4];
 InputQueue queue = InputQueue(events);
 Screen screen;
 GameState gameState;

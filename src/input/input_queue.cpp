@@ -1,15 +1,15 @@
 #include "input_queue.hpp"
 
-InputQueue::InputQueue(InputEvent events[4]){
-    events = events;
+InputQueue::InputQueue(InputEvent (&eventsd)[4]){
+    events = eventsd;
     event_count = 0;
     read_index = 0;
     write_index = 0;
     locked = false;
 }
-void InputQueue::pushEvent(InputEvent event){
+void InputQueue::pushEvent(InputType eventType){
     if(event_count < 4){
-        events[write_index] = event;
+        events[write_index] = {eventType = eventType};
         write_index++;
         if(write_index > MAX_EVENTS - 1){
             write_index = 0;
