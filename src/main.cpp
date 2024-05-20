@@ -24,14 +24,15 @@ SSD1306AsciiSpi oled;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
   &SPI, DC_PIN, RST_PIN, CS_PIN);
 
+bool isGameStateUpdating = false;
 InputEvent events[4] = {};
 InputQueue queue = InputQueue(events);
 Screen screen;
 GameState gameState;
 
 InputHandler inputHandler = InputHandler(up_input_pin, &queue);
-Game game = Game(&gameState, &queue);
-Render render = Render(&display, &gameState, &queue);
+Game game = Game(&gameState, &queue, &isGameStateUpdating);
+Render render = Render(&display, &gameState, &queue, &isGameStateUpdating);
 
 void setup() {
   // put your setup code here, to run once:

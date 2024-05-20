@@ -1,6 +1,7 @@
 #include "game.hpp"
 
-Game::Game(GameState *newGameState, InputQueue *newEventQueue){
+Game::Game(GameState *newGameState, InputQueue *newEventQueue, bool *updatingptr){
+    updating = updatingptr;
     gameState = newGameState;
     eventQueue = newEventQueue;
 };

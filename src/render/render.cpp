@@ -1,6 +1,7 @@
 #include "render.hpp"
 
-Render::Render(Adafruit_SSD1306 *displayd, GameState *gameStated, InputQueue *queued){
+Render::Render(Adafruit_SSD1306 *displayd, GameState *gameStated, InputQueue *queued, bool *newIsGameStateUpdating){
+    isGameStateUpdating = newIsGameStateUpdating;
     display = displayd;
     gameState = gameStated;
     queue = queued;

@@ -41,6 +41,7 @@ class Game : public Coroutine {
     private:
         GameState *gameState;
         InputQueue *eventQueue;
+        bool *updating;
         int generateObstacle();
         bool checkIfDead();
         void updateMotion();
@@ -48,7 +49,7 @@ class Game : public Coroutine {
         void increaseScore();
         void shiftObstaclePositions();
     public:
-        Game(GameState *gameState, InputQueue *eventQueue);
+        Game(GameState *gameState, InputQueue *eventQueue, bool *updating);
         int runCoroutine() override;
         void initGameState();
 };
