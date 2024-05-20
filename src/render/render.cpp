@@ -8,18 +8,6 @@ Render::Render(Adafruit_SSD1306 *displayd, GameState *gameStated, InputQueue *qu
 };
 
 void Render::displayDebug(){
-    // display->clearDisplay();
-    // display->print("Motion: ");
-    // display->println(gameState->motion);
-    // display->print("Pos Y: ");
-    // display->println(gameState->playerPosition);
-    // display->print("Events:");
-    // display->println(queue->getEventCount());
-    // display->print("Preview input: ");
-    // display->println(queue->previewEvent(0).input);
-    // display->display();
-
-
     GFXcanvas1 canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
     canvas.fillScreen(BLACK);
     canvas.print("Motion: ");
