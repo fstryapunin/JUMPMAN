@@ -19,10 +19,12 @@ void Render::displayDebug(){
     frame.print("Updating :");
     frame.println(*isGameStateUpdating);
     frame.print("Obstacles: ");
-    frame.print(gameState->obstacles.count);
+    frame.println(gameState->obstacles.count);
     for (int i = 0; i < gameState->obstacles.count; i++){
         frame.println(gameState->obstacles.positions[i]);
     }
+    frame.print("Anim: ");
+    frame.print(gameState->animCounter);
 }
 
 void Render::renderCrumb(int index){
@@ -52,6 +54,7 @@ void Render::renderObstacles(){
             position - (OBSTACLE_WIDTH/2), GROUND_LEVEL - OBSTACLE_HEIGHT, 
             position, GROUND_LEVEL, 
         WHITE);
+        // frame.drawPixel(position, 20, WHITE);
     }
 }
 
@@ -60,11 +63,11 @@ int Render::runCoroutine(){
         frame.setCursor(0, 0);
         frame.fillScreen(BLACK);
         COROUTINE_AWAIT(*isGameStateUpdating == false);
-        displayDebug();
-        // renderGround();
+        // displayDebug();
+        renderGround();
         // renderCrumb(0);
-        // // renderObstacles();
-        // renderPlayer();
+        renderObstacles();
+        renderPlayer();
         display->drawBitmap(0, 0, frame.getBuffer(), frame.width(), frame.height(), WHITE, BLACK);
         display->display();
         COROUTINE_DELAY(FRAME_DELAY_MS);
