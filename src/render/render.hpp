@@ -8,8 +8,8 @@
 #include "../src/input/input_queue.hpp"
 #include "global.hpp"
 
-#define FRAME_DELAY_MS 50
-#define GROUND_LEVEL 3
+#define FRAME_DELAY_MS 1
+#define GROUND_LEVEL 61
 using namespace ace_routine;
 
 class Render : public Coroutine {
@@ -19,7 +19,11 @@ class Render : public Coroutine {
         InputQueue *queue;
         GFXcanvas1 frame;
         bool *isGameStateUpdating;
+        void renderGround();
+        void renderCrumb(int index);
+        void renderPlayer();
         void displayDebug();
+        void renderObstacles();
     public:
         Render(Adafruit_SSD1306 *display, GameState *gameState, InputQueue *queue, bool *isGameStateUpdating);
         int runCoroutine() override;
