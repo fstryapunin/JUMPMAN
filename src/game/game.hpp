@@ -53,6 +53,7 @@ class Game : public Coroutine {
         void updateAnimCounter();
         void increaseScore();
         void shiftObstaclePositions();
+        int getHorizontalDistanceFromObstacle(int obstaclePosition);
     public:
         Game(GameState *gameState, InputQueue *eventQueue, bool *updating);
         int runCoroutine() override;

@@ -6,31 +6,51 @@ Game::Game(GameState *newGameState, InputQueue *newEventQueue, bool *updatingptr
     eventQueue = newEventQueue;
 };
 
-bool Game::checkIfDead() {};
+int Game::getHorizontalDistanceFromObstacle(int obstaclePosition){
+    return abs((PLAYER_OFFSET_Y + (PLAYER_WIDTH / 2)) - (obstaclePosition - (OBSTACLE_WIDTH / 2)));
+}
+
+bool Game::checkIfDead() {
+    bool isDead = false;
+    for (int obstacleIndex = 0; obstacleIndex < gameState->obstacles.count; obstacleIndex++){
+        int obstaclePosition = gameState->obstacles.positions[obstacleIndex];
+        int horizontalDistanceFromObstacle = getHorizontalDistanceFromObstacle(obstaclePosition);
+        if(horizontalDistanceFromObstacle < 5){
+            if(gameState->playerPosition < OBSTACLE_HEIGHT){
+                return true;
+            }
+        }else if(horizontalDistanceFromObstacle < 10)
+        {
+            if(gameState->playerPosition < (10 - horizontalDistanceFromObstacle) * 4){
+                return true;
+            }
+        }
+    }
+    return false;
+};
 
 void Game::generateObstacle() {
     bool shoudGenerate = gameState->obstacles.count == 0 || (gameState->obstacles.count < 2 && gameState->obstacles.positions[0] < SCREEN_WIDTH / 2);
     if(shoudGenerate){
-        // bool createObstacle = rand() % 2 == 0;
-        // if(createObstacle){
-            gameState->obstacles.positions[1] = SCREEN_WIDTH + OBSTACLE_WIDTH;
-        // }
+        bool createObstacle = rand() % 25 == 0;
+        if(createObstacle){
+            gameState->obstacles.positions[gameState->obstacles.count] = SCREEN_WIDTH + OBSTACLE_WIDTH;
+            gameState->obstacles.count++;
+        }
     }
 };
 void Game::shiftObstaclePositions() {
-    int new_indexes[MAX_OBSTACLE_COUNT];
+    int new_positions[MAX_OBSTACLE_COUNT];
     int new_obstacle_count = 0;
-    for (int obstacleIndex; obstacleIndex < gameState->obstacles.count; obstacleIndex++){
-        if(gameState->obstacles.positions[obstacleIndex] <= 0 - OBSTACLE_WIDTH){
-            new_indexes[obstacleIndex] = -1;
-        } else {
-            new_indexes[new_obstacle_count] = gameState->obstacles.positions[obstacleIndex] - 1;
+    for (int obstacleIndex = 0; obstacleIndex < gameState->obstacles.count; obstacleIndex++){
+        if(gameState->obstacles.positions[obstacleIndex] > 0){
+            new_positions[new_obstacle_count] = gameState->obstacles.positions[obstacleIndex] - 1;
             new_obstacle_count++;
         }
     }
     gameState->obstacles.count = new_obstacle_count;
     for (int positionIndex = 0; positionIndex < new_obstacle_count; positionIndex++){
-        gameState->obstacles.positions[positionIndex] = new_indexes[positionIndex];
+        gameState->obstacles.positions[positionIndex] = new_positions[positionIndex];
     }
 };
 
@@ -64,7 +84,7 @@ void Game::updatePosition() {
 
 void Game::updateAnimCounter(){
     gameState->animCounter++;
-    if(gameState->animCounter >= 128) {
+    if(gameState->animCounter >= SCREEN_WIDTH + OBSTACLE_WIDTH * 2) {
         gameState->animCounter = 0;
     }else{
         gameState->animCounter++;
@@ -97,6 +117,7 @@ int Game::runCoroutine(){
         updatePosition();
         shiftObstaclePositions();
         generateObstacle();
+        gameState->dead = checkIfDead();
         *updating = false;
         COROUTINE_DELAY(UPDATE_DELAY);
     }
