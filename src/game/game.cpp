@@ -91,8 +91,10 @@ void Game::updateAnimCounter(){
     }
 }
 
-void Game::increaseScore() {
-    // gameState->score++;
+void Game::updateScore(int prevObstacles) {
+    if(prevObstacles > gameState->obstacles.count){
+        gameState->score++;
+    }
 };
 
 void Game::initGameState(){    
@@ -110,6 +112,7 @@ int Game::runCoroutine(){
     COROUTINE_LOOP(){
         COROUTINE_AWAIT(eventQueue->getLocked() == false);
         if(!gameState->dead){
+            int prevObstacles = gameState->obstacles.count;
             *updating = true;
             updateAnimCounter();
             eventQueue->lock();
@@ -119,6 +122,7 @@ int Game::runCoroutine(){
             shiftObstaclePositions();
             generateObstacle();
             gameState->dead = checkIfDead();
+            updateScore(prevObstacles);
             *updating = false;
         }
         COROUTINE_DELAY(UPDATE_DELAY);

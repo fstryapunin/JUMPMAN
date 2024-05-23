@@ -69,6 +69,12 @@ void Render::renderObstacles(){
     }
 }
 
+void Render::renderScore(){
+    frame.setCursor(SCREEN_WIDTH - 20, 10);
+    frame.setTextSize(1);
+    frame.print(gameState->score);
+}
+
 int Render::runCoroutine(){
     COROUTINE_LOOP(){
         frame.setCursor(0, 0);
@@ -79,6 +85,7 @@ int Render::runCoroutine(){
         // renderCrumb(0);
         renderObstacles();
         renderPlayer(!(gameState->dead));
+        renderScore();
         if(gameState->dead){
             renderGameOver();
         }

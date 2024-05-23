@@ -25,6 +25,7 @@ class Render : public Coroutine {
         void displayDebug();
         void renderGameOver();
         void renderObstacles();
+        void renderScore();
     public:
         Render(Adafruit_SSD1306 *display, GameState *gameState, InputQueue *queue, bool *isGameStateUpdating);
         int runCoroutine() override;

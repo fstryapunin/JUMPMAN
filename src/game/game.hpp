@@ -51,7 +51,7 @@ class Game : public Coroutine {
         void updateMotion();
         void updatePosition();
         void updateAnimCounter();
-        void increaseScore();
+        void updateScore(int prevObstacles);
         void shiftObstaclePositions();
         int getHorizontalDistanceFromObstacle(int obstaclePosition);
     public:
