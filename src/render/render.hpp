@@ -21,8 +21,9 @@ class Render : public Coroutine {
         bool *isGameStateUpdating;
         void renderGround();
         void renderCrumb(int index);
-        void renderPlayer();
+        void renderPlayer(bool happy);
         void displayDebug();
+        void renderGameOver();
         void renderObstacles();
     public:
         Render(Adafruit_SSD1306 *display, GameState *gameState, InputQueue *queue, bool *isGameStateUpdating);

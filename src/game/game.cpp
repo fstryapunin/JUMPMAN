@@ -7,7 +7,7 @@ Game::Game(GameState *newGameState, InputQueue *newEventQueue, bool *updatingptr
 };
 
 int Game::getHorizontalDistanceFromObstacle(int obstaclePosition){
-    return abs((PLAYER_OFFSET_Y + (PLAYER_WIDTH / 2)) - (obstaclePosition - (OBSTACLE_WIDTH / 2)));
+    return abs((PLAYER_OFFSET_X + (PLAYER_WIDTH / 2)) - (obstaclePosition - (OBSTACLE_WIDTH / 2)));
 }
 
 bool Game::checkIfDead() {
@@ -109,16 +109,18 @@ void Game::initGameState(){
 int Game::runCoroutine(){
     COROUTINE_LOOP(){
         COROUTINE_AWAIT(eventQueue->getLocked() == false);
-        *updating = true;
-        updateAnimCounter();
-        eventQueue->lock();
-        updateMotion();
-        eventQueue->unlock();
-        updatePosition();
-        shiftObstaclePositions();
-        generateObstacle();
-        gameState->dead = checkIfDead();
-        *updating = false;
+        if(!gameState->dead){
+            *updating = true;
+            updateAnimCounter();
+            eventQueue->lock();
+            updateMotion();
+            eventQueue->unlock();
+            updatePosition();
+            shiftObstaclePositions();
+            generateObstacle();
+            gameState->dead = checkIfDead();
+            *updating = false;
+        }
         COROUTINE_DELAY(UPDATE_DELAY);
     }
 };
